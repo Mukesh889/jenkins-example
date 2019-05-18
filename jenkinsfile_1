@@ -1,0 +1,25 @@
+pipeline{
+agent any
+stages{
+stage('SCM Checkout'){steps{
+git 'https://github.com/KirtiVyas/maven-project.git'}
+}
+stage('compile source code'){steps{
+withMaven (maven: 'LocalMaven'){
+sh 'mvn compile'}
+}
+}
+stage('test'){steps{
+withMaven (maven: 'LocalMaven'){
+sh 'mvn test'}
+}
+}
+stage('Sonar Analysis package'){steps{
+withSonarQubeEnv ('sonar'){
+withMaven (maven: 'LocalMaven'){
+sh 'mvn clean package sonar:sonar'}
+}
+}
+}
+}
+}
