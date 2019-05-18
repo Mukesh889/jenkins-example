@@ -1,7 +1,7 @@
 pipeline {
 agent any 
 stages {
-stage ('SCM Checkout')
+  stage ('SCM Checkout'){
 steps{
 git 'https://github.com/Mukesh889/jenkins-example.git'
 }
