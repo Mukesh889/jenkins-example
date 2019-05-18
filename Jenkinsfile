@@ -8,14 +8,14 @@ pipeline {
                             }
                   stage('Packageing with sonar'){
                     steps{
-                         withMaven(maven: 'Test_maven')
+                         withMaven(maven:'Test_maven')
                           sh 'mvn package'
                               }
                            }
                      stage('installing with sonar'){
                        steps{
                           withSonarQubeEnv('sonar'){
-                          withMaven(maven: 'Test_maven'){
+                          withMaven(maven:'Test_maven'){
                           sh 'mvn clean install sonar:sonar'
                                      }
                                 }
