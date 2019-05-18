@@ -15,7 +15,9 @@ sh 'mvn package'
 stage('installing with sonar'){
 steps{
 withSonarQubeEnv('sonar'){
+  withMaven(maven : 'Test_maven'){
 sh 'mvn soanr:sonar clean install'
+}
 }
 }
 }
