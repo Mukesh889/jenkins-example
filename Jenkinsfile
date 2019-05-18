@@ -1,26 +1,16 @@
 pipeline {
-    agent any
-
-    stages {
-        stage ('SCM Checkout') {
-            git 'https://github.com/Mukesh889/jenkins-example.git'
-        }
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'Test_maven') {
-                    sh 'mvn clean compile'
-                }
-            }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'Test_maven') {
-                    sh 'mvn test'
-                }
-            }
-        }
+agent any
+stages {
+stage('SCM Checkout'){
+steps{
+git 'https://github.com/Mukesh889/jenkins-example.git'
+}
+}
+stage('Packaging'){
+steps{ 
+    withMaven (mvn: 'Test_maven')
+      sh 'mvn package'
     }
+}
+}
 }
