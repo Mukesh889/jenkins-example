@@ -1,16 +1,23 @@
 pipeline {
-agent any
+agent any 
 stages {
-stage('SCM Checkout'){
+stage ('SCM Checkout')
 steps{
 git 'https://github.com/Mukesh889/jenkins-example.git'
 }
 }
-stage('Packaging'){
-steps{ 
-    withMaven (mvn: 'Test_maven')
-      sh 'mvn package'
-    }
+stage('Packageing with sonar'){
+steps{
+withMaven(maven: 'Test_maven')
+sh 'mvn package'
+}
+}
+stage('installing with sonar'){
+steps{
+withSonarQubeEnv('sonar'){
+sh 'mvn soanr:sonar clean install'
+}
+}
 }
 }
 }
